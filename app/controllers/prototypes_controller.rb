@@ -50,9 +50,8 @@ class PrototypesController < ApplicationController
   def prototype_params
     params.require(:prototype).permit(:title, :image, :catch_copy, :concept).merge(user_id: current_user.id)
   end
-
-  def move_to_index
-    unless @user == current_user
+  def move_to_index 
+    unless Prototype.find(params[:id]).user.id.to_i == current_user.id
       redirect_to action: :index
     end
   end
